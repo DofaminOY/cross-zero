@@ -9,6 +9,7 @@ class App extends React.Component {
           squares : Array(9).fill(null),
           count : 0
        }
+       
        this.winnerLine = [
           [0,1,2],
           [3,4,5],
@@ -20,20 +21,33 @@ class App extends React.Component {
           [0,4,8]
        ]
     }
+    
     isWinener = () => {
-        let s = (this.state.count % 2 === 0) ? 'X' : 'O';
-        for (let i = 0; i < 8; i++){
-          let line = this.winnerLine[i];
-          if (this.state.squares[line[0]] === s && this.state.squares[line[1]] === s && this.state.squares[line[2]] === s){ alert(s +  ' win'); 
-       
+      let s = (this.state.count % 2 === 0) ? 'X' : 'O';
+      for (let i = 0; i < 8; i++){
+        let line = this.winnerLine[i];
+        if (this.state.squares[line[0]]  === s && this.state.squares[line[1]] === s && this.state.squares[line[2]] === s){ 
         
-        setTimeout(() =>{
-          this.setState({squares : Array(9).fill(null)});
-          this.setState({count : 0});
-        },2000)
-       }
+        setTimeout(() => alert(s +  ' win'), 100);
+        setTimeout(() => {
+        this.setState({squares : Array(9).fill(null)});
+        this.setState({count : 0})
+          },2000)
       }
+        if (this.state.count === 8)   {
+          setTimeout(() => alert('draw'), 100);
+          
+          setTimeout(() => {
+            this.setState({squares : Array(9).fill(null)});
+            this.setState({count : 0})
+          },2000) 
+          
+          break;
+        }         
+      }
+           
     }
+       
 
     clickHandler = event => {
 
@@ -46,7 +60,7 @@ console.log(data);
    this.setState({count: this.state.count + 1});
    this.setState({squares: currentSquares});
  }else {
-     alert('НИЗЗЯ!!')
+     alert('Can not!!!')
  }
  this.isWinener();
 }
@@ -70,4 +84,6 @@ console.log(data);
 }
 
 export default App;
+
+
 
